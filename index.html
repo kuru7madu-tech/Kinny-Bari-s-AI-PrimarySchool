@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Kinny Bari's AI PrimarySchool ✨</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root{
+  --pu:#A855F7;--pu2:#7C3AED;--pk:#FF4E8E;--pk2:#E91E8C;
+  --ye:#FFD93D;--or:#FF6B35;--gr:#06D6A0;--bl:#4ECDC4;
+  --card:rgba(18,14,46,0.93);--text:#F0EEFF;--mu:#8880B0;--r:20px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:'Nunito',sans-serif;min-height:100vh;color:var(--text);overflow-x:hidden;
+  background:#0a0820;
+  background-image:radial-gradient(ellipse at 20% 20%,rgba(168,85,247,.18) 0%,transparent 55%),
+    radial-gradient(ellipse at 80% 80%,rgba(255,78,142,.12) 0%,transparent 55%),
+    radial-gradient(ellipse at 50% 50%,rgba(6,214,160,.06) 0%,transparent 65%);}
+#stars{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden;}
+.star{position:absolute;background:#fff;border-radius:50%;animation:tw var(--d,3s) ease-in-out infinite var(--dl,0s);}
+@keyframes tw{0%,100%{opacity:.2;transform:scale(1);}50%{opacity:1;transform:scale(1.5);}}
+#taskbar{position:fixed;bottom:0;left:0;right:0;z-index:900;background:rgba(6,4,22,.97);
+  border-top:1px solid rgba(168,85,247,.35);padding:5px 14px;
+  display:flex;align-items:center;justify-content:space-between;gap:8px;backdrop-filter:blur(20px);}
+.tb-brand{font-size:10px;color:var(--ye);font-weight:800;white-space:nowrap;}
+#tb-school{font-size:10px;color:var(--gr);background:rgba(6,214,160,.1);border:1px solid rgba(6,214,160,.3);
+  border-radius:20px;padding:2px 10px;display:none;white-space:nowrap;}
+.tb-r{font-size:10px;color:var(--mu);white-space:nowrap;}
+/* LOGIN */
+#login-scr{position:fixed;inset:0;z-index:800;display:none;align-items:center;justify-content:center;padding:20px;
+  background:radial-gradient(ellipse at 30% 30%,rgba(168,85,247,.2),transparent 55%),
+    radial-gradient(ellipse at 70% 70%,rgba(255,78,142,.15),transparent 55%),#0a0820;}
+.lcard{background:rgba(13,10,36,.96);border:1px solid rgba(168,85,247,.5);border-radius:28px;
+  padding:34px 26px;max-width:400px;width:100%;text-align:center;
+  box-shadow:0 0 0 1px rgba(168,85,247,.1),0 40px 80px rgba(0,0,0,.8),0 0 50px rgba(168,85,247,.4);
+  animation:cin .6s cubic-bezier(.34,1.56,.64,1);position:relative;overflow:hidden;}
+.lcard::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+  background:conic-gradient(from 0deg,transparent,rgba(168,85,247,.05),transparent,rgba(255,78,142,.05),transparent);
+  animation:rbg 8s linear infinite;pointer-events:none;}
+@keyframes cin{from{opacity:0;transform:scale(.85) translateY(28px);}to{opacity:1;transform:scale(1) translateY(0);}}
+@keyframes rbg{to{transform:rotate(360deg);}}
+.lemi{font-size:58px;display:block;margin-bottom:12px;animation:fl 3s ease-in-out infinite;position:relative;z-index:1;}
+@keyframes fl{0%,100%{transform:translateY(0) rotate(-4deg);}50%{transform:translateY(-12px) rotate(4deg);}}
+.ltitle{font-family:'Fredoka One',cursive;font-size:21px;line-height:1.2;margin-bottom:3px;
+  background:linear-gradient(135deg,var(--ye),var(--or),var(--pk));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;position:relative;z-index:1;}
+.lsub{font-size:12px;color:var(--mu);margin-bottom:18px;position:relative;z-index:1;}
+.llangs{display:flex;justify-content:center;gap:6px;margin-bottom:16px;flex-wrap:wrap;position:relative;z-index:1;}
+.llp{padding:5px 12px;border-radius:50px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);
+  color:#ccc;cursor:pointer;font-size:12px;font-weight:800;transition:all .25s;font-family:'Nunito',sans-serif;}
+.llp:hover{border-color:var(--pu);color:var(--pu);}
+.llp.on{background:rgba(168,85,247,.25);border-color:var(--pu);color:var(--ye);}
+.pwwrap{position:relative;margin-bottom:13px;z-index:1;}
+.pwinput{width:100%;padding:14px 48px 14px 20px;border-radius:50px;border:1.5px solid rgba(168,85,247,.4);
+  background:rgba(255,255,255,.06);color:#fff;font-family:'Nunito',sans-serif;font-size:16px;outline:none;
+  text-align:center;letter-spacing:3px;transition:all .3s;}
+.pwinput:focus{border-color:var(--pu);box-shadow:0 0 0 3px rgba(168,85,247,.15);}
+.pwinput::placeholder{letter-spacing:1px;color:rgba(255,255,255,.3);font-size:14px;}
+.pweye{position:absolute;right:15px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--mu);cursor:pointer;font-size:18px;}
+.lbtn{width:100%;padding:14px;border-radius:50px;border:none;
+  background:linear-gradient(135deg,var(--pu2),var(--pk2));
+  color:#fff;font-family:'Nunito',sans-serif;font-weight:900;font-size:16px;cursor:pointer;
+  transition:all .3s;position:relative;z-index:1;box-shadow:0 6px 24px rgba(168,85,247,.4);}
+.lbtn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(168,85,247,.6);}
+.lbtn:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+.lerr{color:var(--pk);font-size:12px;margin-top:9px;display:none;position:relative;z-index:1;animation:shk .4s ease;}
+@keyframes shk{0%,100%{transform:translateX(0);}25%,75%{transform:translateX(-7px);}50%{transform:translateX(7px);}}
+.lfoot{font-size:10px;color:rgba(255,255,255,.2);margin-top:16px;position:relative;z-index:1;}
+.lfoot span{color:var(--ye);}
+/* APP */
+#app{display:none;}
+#hdr{position:relative;z-index:10;text-align:center;padding:22px 16px 6px;}
+.lpill{display:inline-flex;align-items:center;gap:12px;background:rgba(168,85,247,.12);
+  border:1.5px solid rgba(168,85,247,.4);border-radius:50px;padding:10px 22px;
+  backdrop-filter:blur(16px);animation:ppulse 4s ease-in-out infinite;}
+@keyframes ppulse{0%,100%{box-shadow:0 0 40px rgba(168,85,247,.4);}50%{box-shadow:0 0 70px rgba(168,85,247,.7),0 0 100px rgba(255,78,142,.2);}}
+.lspin{font-size:32px;animation:spiny 6s linear infinite;}
+@keyframes spiny{to{transform:rotateY(360deg);}}
+.ltxt{font-family:'Fredoka One',cursive;font-size:clamp(14px,3.5vw,25px);
+  background:linear-gradient(90deg,var(--ye),var(--or),var(--pk),var(--bl),var(--pu));
+  background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:shine 4s linear infinite;}
+@keyframes shine{to{background-position:200% center;}}
+.lsubtxt{font-size:10px;color:var(--mu);margin-top:2px;}
+#logout-btn{position:fixed;top:9px;right:9px;z-index:700;padding:7px 13px;border-radius:50px;
+  border:1px solid rgba(255,78,142,.3);background:rgba(255,78,142,.1);color:var(--pk);
+  font-family:'Nunito',sans-serif;font-weight:800;font-size:11px;cursor:pointer;transition:all .3s;
+  display:none;backdrop-filter:blur(10px);}
+#logout-btn:hover{background:var(--pk);color:#fff;}
+#lang-bar{display:flex;justify-content:center;gap:7px;padding:9px 14px 3px;position:relative;z-index:10;flex-wrap:wrap;}
+.langb{padding:6px 15px;border-radius:50px;border:1.5px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.05);color:#ccc;font-family:'Nunito',sans-serif;font-weight:800;
+  font-size:12px;cursor:pointer;transition:all .3s;}
+.langb:hover{border-color:var(--pu);color:var(--pu);transform:scale(1.05);}
+.langb.on{background:linear-gradient(135deg,rgba(168,85,247,.3),rgba(255,78,142,.2));
+  border-color:var(--ye);color:var(--ye);box-shadow:0 0 16px rgba(168,85,247,.4);transform:scale(1.05);}
+#nav{display:flex;justify-content:center;gap:7px;padding:9px 13px 12px;position:relative;z-index:10;flex-wrap:wrap;}
+.navb{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 13px;
+  border-radius:15px;border:none;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:900;
+  font-size:11px;transition:all .3s;min-width:68px;}
+.navb:hover{transform:translateY(-3px) scale(1.05);}
+.navb.on{transform:translateY(-5px) scale(1.08);}
+.nvi{font-size:21px;display:block;}
+#b-home{background:linear-gradient(135deg,#5B4FE9,#7C3AED);color:#fff;box-shadow:0 5px 18px rgba(91,79,233,.5);}
+#b-draw{background:linear-gradient(135deg,#F857A6,#FF5858);color:#fff;box-shadow:0 5px 18px rgba(248,87,166,.5);}
+#b-math{background:linear-gradient(135deg,#1CB5E0,#003d6e);color:#fff;box-shadow:0 5px 18px rgba(28,181,224,.5);}
+#b-story{background:linear-gradient(135deg,#11998E,#38EF7D);color:#fff;box-shadow:0 5px 18px rgba(17,153,142,.5);}
+#b-chat{background:linear-gradient(135deg,#F7971E,#FFD200);color:#1a1a3e;box-shadow:0 5px 18px rgba(247,151,30,.5);}
+#content{position:relative;z-index:5;max-width:880px;margin:0 auto;padding:0 12px 88px;}
+.panel{display:none;animation:pin .4s cubic-bezier(.34,1.56,.64,1);}
+.panel.on{display:block;}
+@keyframes pin{from{opacity:0;transform:translateY(16px) scale(.97);}to{opacity:1;transform:translateY(0) scale(1);}}
+.pc{background:var(--card);border-radius:var(--r);border:1px solid rgba(168,85,247,.2);
+  padding:18px;backdrop-filter:blur(20px);box-shadow:0 20px 60px rgba(0,0,0,.6);position:relative;overflow:hidden;}
+.pc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(168,85,247,.6),transparent);}
+.ptitle{font-family:'Fredoka One',cursive;font-size:clamp(19px,4.5vw,27px);margin-bottom:15px;
+  text-align:center;display:flex;align-items:center;justify-content:center;gap:9px;}
+/* HOME */
+.hgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:11px;margin-top:12px;}
+.hc{border-radius:17px;padding:18px 11px;text-align:center;cursor:pointer;transition:all .3s;
+  border:1px solid rgba(255,255,255,.08);position:relative;overflow:hidden;}
+.hc:hover{transform:translateY(-6px) scale(1.03);}
+.hci{font-size:42px;display:block;margin-bottom:7px;transition:transform .3s;}
+.hc:hover .hci{transform:scale(1.2) rotate(5deg);}
+.hct{font-weight:900;font-size:13px;}
+.hcd{font-size:11px;opacity:.75;margin-top:3px;}
+.hc-draw{background:linear-gradient(135deg,rgba(248,87,166,.2),rgba(255,88,88,.15));border-color:rgba(248,87,166,.4)!important;}
+.hc-math{background:linear-gradient(135deg,rgba(28,181,224,.2),rgba(0,30,70,.2));border-color:rgba(28,181,224,.4)!important;}
+.hc-story{background:linear-gradient(135deg,rgba(17,153,142,.2),rgba(56,239,125,.15));border-color:rgba(56,239,125,.4)!important;}
+.hc-chat{background:linear-gradient(135deg,rgba(247,151,30,.2),rgba(255,210,0,.15));border-color:rgba(255,210,0,.4)!important;}
+/* QR */
+.qrbox{margin-top:16px;background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.25);
+  border-radius:17px;padding:16px;text-align:center;}
+.qrttl{font-family:'Fredoka One',cursive;font-size:16px;color:var(--ye);margin-bottom:5px;}
+.qrsub{font-size:11px;color:var(--mu);margin-bottom:11px;}
+#qrc{display:flex;justify-content:center;margin-bottom:9px;}
+#qrc canvas,#qrc img{border-radius:10px;border:3px solid #fff;}
+.qrurl{font-size:10px;color:var(--mu);word-break:break-all;margin-bottom:9px;}
+.qrdl{padding:8px 20px;border-radius:50px;border:none;
+  background:linear-gradient(135deg,var(--pu),var(--pk));
+  color:#fff;font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;cursor:pointer;transition:all .3s;}
+.qrdl:hover{transform:scale(1.05);box-shadow:0 4px 16px rgba(168,85,247,.5);}
+/* INPUTS */
+.irow{display:flex;gap:7px;margin-bottom:11px;flex-wrap:wrap;align-items:center;}
+.mi{flex:1;min-width:150px;padding:12px 17px;border-radius:50px;border:1.5px solid rgba(168,85,247,.35);
+  background:rgba(255,255,255,.06);color:#fff;font-family:'Nunito',sans-serif;font-size:14px;outline:none;transition:all .3s;}
+.mi:focus{border-color:var(--pu);box-shadow:0 0 0 3px rgba(168,85,247,.12);}
+.mi::placeholder{color:rgba(255,255,255,.3);}
+.btn{padding:10px 17px;border-radius:50px;border:none;cursor:pointer;font-family:'Nunito',sans-serif;
+  font-weight:800;font-size:13px;transition:all .3s;display:flex;align-items:center;gap:5px;white-space:nowrap;}
+.btn:hover{transform:scale(1.05);}
+.btn:active{transform:scale(.97);}
+.bpu{background:linear-gradient(135deg,var(--pu2),var(--pu));color:#fff;}
+.bpk{background:linear-gradient(135deg,var(--pk2),var(--pk));color:#fff;}
+.bgr{background:linear-gradient(135deg,#11998E,var(--gr));color:#fff;}
+.bbl{background:linear-gradient(135deg,#1CB5E0,#0073b1);color:#fff;}
+.bye{background:linear-gradient(135deg,#F7971E,var(--ye));color:#1a1a3e;}
+.bgy{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.15);}
+.bgy:hover{background:rgba(255,255,255,.18);}
+.vb{width:40px;height:40px;border-radius:50%;border:none;cursor:pointer;flex-shrink:0;
+  background:linear-gradient(135deg,var(--pu2),var(--pk2));color:#fff;font-size:17px;
+  display:flex;align-items:center;justify-content:center;transition:all .3s;}
+.vb:hover{transform:scale(1.1);}
+.vb.rec{animation:rp .5s ease-in-out infinite;background:var(--pk);}
+@keyframes rp{0%,100%{transform:scale(1);}50%{transform:scale(1.15);}}
+.chips{display:flex;gap:6px;margin-bottom:11px;flex-wrap:wrap;}
+.chip{padding:6px 13px;border-radius:50px;border:1.5px solid rgba(255,255,255,.15);
+  background:rgba(255,255,255,.06);color:#ccc;cursor:pointer;font-family:'Nunito',sans-serif;
+  font-weight:700;font-size:12px;transition:all .3s;}
+.chip:hover{border-color:var(--pu);color:var(--pu);}
+.chip.on{border-color:var(--ye);background:rgba(255,217,61,.15);color:var(--ye);}
+.obox{background:rgba(0,0,0,.35);border-radius:13px;border:1px solid rgba(255,255,255,.08);
+  min-height:175px;padding:14px;margin-top:11px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.oimg{max-width:100%;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,.6);}
+.otxt{font-size:14px;line-height:1.85;color:#DDD8FF;width:100%;}
+.ph{color:rgba(255,255,255,.25);font-size:13px;text-align:center;}
+.wait{display:flex;flex-direction:column;align-items:center;gap:9px;padding:14px;}
+.wtxt{font-family:'Fredoka One',cursive;font-size:16px;color:var(--ye);text-align:center;line-height:1.4;}
+.dots{display:flex;gap:6px;margin-top:5px;}
+.dot{width:10px;height:10px;border-radius:50%;animation:bop 1.2s ease-in-out infinite;}
+.dot:nth-child(1){background:var(--pu);}
+.dot:nth-child(2){background:var(--pk);animation-delay:.2s;}
+.dot:nth-child(3){background:var(--bl);animation-delay:.4s;}
+@keyframes bop{0%,80%,100%{transform:scale(.7) translateY(0);}40%{transform:scale(1.2) translateY(-6px);}}
+.quiz{margin-top:14px;}
+.qi{background:rgba(168,85,247,.1);border-radius:12px;border:1px solid rgba(168,85,247,.25);padding:12px;margin-bottom:8px;}
+.qtxt{font-weight:800;margin-bottom:7px;font-size:13px;color:var(--ye);}
+.qopts{display:flex;flex-direction:column;gap:5px;}
+.qo{padding:7px 13px;border-radius:50px;border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.04);color:#ccc;cursor:pointer;font-family:'Nunito',sans-serif;
+  font-size:12px;text-align:left;transition:all .3s;}
+.qo:hover{background:rgba(168,85,247,.25);border-color:var(--pu);color:#fff;}
+.qo.ok{background:rgba(6,214,160,.2);border-color:var(--gr);color:var(--gr)!important;cursor:default;}
+.qo.no{background:rgba(255,78,142,.15);border-color:var(--pk);color:var(--pk)!important;cursor:default;}
+/* MATH */
+.avrow{display:flex;align-items:center;gap:11px;margin-bottom:13px;}
+.av{width:58px;height:58px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--pu2),var(--pk2));
+  display:flex;align-items:center;justify-content:center;font-size:26px;
+  animation:avglow 2.5s ease-in-out infinite;}
+@keyframes avglow{0%,100%{box-shadow:0 0 18px rgba(168,85,247,.5);}50%{box-shadow:0 0 38px rgba(168,85,247,.9),0 0 55px rgba(255,78,142,.3);}}
+.avbbl{background:rgba(255,255,255,.06);border-radius:13px;padding:11px;border:1px solid rgba(255,255,255,.1);
+  font-size:13px;line-height:1.6;flex:1;border-top-left-radius:4px;}
+/* STORY */
+.sout{background:rgba(17,153,142,.08);border-radius:13px;border:1px solid rgba(56,239,125,.2);padding:16px;margin-top:11px;}
+.stxt{font-size:14px;line-height:2;color:#E0FFE8;}
+.simgs{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:9px;margin-top:13px;}
+.simg{width:100%;border-radius:10px;box-shadow:0 4px 18px rgba(0,0,0,.5);}
+/* CHAT */
+.carea{background:rgba(0,0,0,.35);border-radius:13px;border:1px solid rgba(255,255,255,.08);
+  height:305px;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:9px;margin-bottom:11px;}
+.cm{display:flex;gap:7px;align-items:flex-start;animation:pin .3s ease;}
+.cm.u{flex-direction:row-reverse;}
+.mav{width:31px;height:31px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:15px;}
+.mav.ai{background:linear-gradient(135deg,var(--pu2),var(--pk2));}
+.mav.u{background:linear-gradient(135deg,#1CB5E0,var(--gr));}
+.mbl{max-width:78%;padding:9px 13px;border-radius:15px;font-size:13px;line-height:1.7;}
+.cm.ai .mbl{background:rgba(168,85,247,.18);border:1px solid rgba(168,85,247,.3);border-top-left-radius:4px;}
+.cm.u .mbl{background:linear-gradient(135deg,rgba(28,181,224,.5),rgba(168,85,247,.4));border-top-right-radius:4px;}
+.cimg{max-width:165px;border-radius:9px;margin-top:5px;}
+.arow{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:rgba(168,85,247,.5);border-radius:2px;}
+@media(max-width:580px){.navb{padding:8px 10px;min-width:58px;font-size:10px;}.nvi{font-size:19px;}.pc{padding:13px;}.hgrid{grid-template-columns:repeat(2,1fr);}.lspin{font-size:26px;}}
+</style>
+</head>
+<body>
+<div id="stars"></div>
+<div id="taskbar">
+  <span class="tb-brand">✨ Kinny Bari AI Lab</span>
+  <span id="tb-school">🏫 School</span>
+  <span class="tb-r">Premium Children's AI</span>
+</div>
+<button id="logout-btn" onclick="doLogout()">🚪 Logout</button>
+
+<!-- LOGIN -->
+<div id="login-scr">
+  <div class="lcard">
+    <span class="lemi">🌟</span>
+    <div class="ltitle" id="lt">Kinny Bari's AI PrimarySchool</div>
+    <div class="lsub" id="ls">Enter your school password to start learning!</div>
+    <div class="llangs">
+      <button class="llp on" onclick="setLL('en',this)">🇬🇧 EN</button>
+      <button class="llp" onclick="setLL('ta',this)">🇮🇳 தமிழ்</button>
+      <button class="llp" onclick="setLL('si',this)">🇱🇰 සිං</button>
+      <button class="llp" onclick="setLL('ar',this)">🇸🇦 عر</button>
+    </div>
+    <div class="pwwrap">
+      <input class="pwinput" id="pwi" type="password" placeholder="🔑 AIzaSy... (Gemini API Key)" onkeydown="if(event.key==='Enter')doLogin()"/>
+      <button class="pweye" onclick="togglePW()" id="pweye">👁️</button>
+    </div>
+    <button class="lbtn" onclick="doLogin()" id="lbtn">🚀 <span id="lbtxt">Start Learning!</span></button>
+    <div class="lerr" id="lerr">❌ Wrong password! Try again.</div>
+    <div class="lfoot">Powered by <span>Gemini AI</span> · Made with ❤️ by <span>Kinny Bari AI Lab</span></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+<div id="hdr">
+  <div class="lpill">
+    <span class="lspin">🎓</span>
+    <div><div class="ltxt" id="atitle">Kinny Bari's AI PrimarySchool</div><div class="lsubtxt" id="asub">Smart Learning for Smart Kids</div></div>
+    <span class="lspin" style="animation-direction:reverse;">🌟</span>
+  </div>
+</div>
+<div id="lang-bar">
+  <button class="langb on" onclick="setLang('en',this)">🇬🇧 English</button>
+  <button class="langb" onclick="setLang('ta',this)">🇮🇳 தமிழ்</button>
+  <button class="langb" onclick="setLang('si',this)">🇱🇰 සිංහල</button>
+  <button class="langb" onclick="setLang('ar',this)">🇸🇦 عربي</button>
+</div>
+<div id="nav">
+  <button class="navb on" id="b-home" onclick="gp('home')"><span class="nvi">🏠</span><span id="n-home">Home</span></button>
+  <button class="navb" id="b-draw" onclick="gp('draw')"><span class="nvi">🎨</span><span id="n-draw">Drawing</span></button>
+  <button class="navb" id="b-math" onclick="gp('math')"><span class="nvi">🔢</span><span id="n-math">Maths</span></button>
+  <button class="navb" id="b-story" onclick="gp('story')"><span class="nvi">📚</span><span id="n-story">Stories</span></button>
+  <button class="navb" id="b-chat" onclick="gp('chat')"><span class="nvi">💬</span><span id="n-chat">Chat</span></button>
+</div>
+<div id="content">
+
+<!-- HOME -->
+<div id="p-home" class="panel on">
+ <div class="pc">
+  <div class="ptitle">🌈 <span id="hw">Welcome to AI School!</span></div>
+  <div style="text-align:center;font-size:12px;color:var(--mu);margin-bottom:12px;" id="hd">Choose your learning adventure 👇</div>
+  <div class="hgrid">
+   <div class="hc hc-draw" onclick="gp('draw')"><span class="hci">🎨</span><div class="hct" id="hct-draw">Drawing Zone</div><div class="hcd" id="hcd-draw">Create amazing AI art!</div></div>
+   <div class="hc hc-math" onclick="gp('math')"><span class="hci">🔢</span><div class="hct" id="hct-math">Maths Zone</div><div class="hcd" id="hcd-math">Learn with AI teacher</div></div>
+   <div class="hc hc-story" onclick="gp('story')"><span class="hci">📚</span><div class="hct" id="hct-story">Story Studio</div><div class="hcd" id="hcd-story">Create amazing stories!</div></div>
+   <div class="hc hc-chat" onclick="gp('chat')"><span class="hci">💬</span><div class="hct" id="hct-chat">Chat Zone</div><div class="hcd" id="hcd-chat">Talk with Kinny Bari!</div></div>
+  </div>
+  <div class="qrbox">
+   <div class="qrttl">📱 Share This App</div>
+   <div class="qrsub" id="qrsub">Scan QR Code to open on any device!</div>
+   <div id="qrc"></div>
+   <div class="qrurl" id="qrurl"></div>
+   <button class="qrdl" onclick="dlQR()">⬇️ <span id="qrdltxt">Download QR</span></button>
+  </div>
+ </div>
+</div>
+
+<!-- DRAW -->
+<div id="p-draw" class="panel">
+ <div class="pc">
+  <div class="ptitle" style="color:var(--pk);">🎨 <span id="dt">Drawing Zone</span></div>
+  <div class="chips" id="dstyles">
+   <div class="chip on" onclick="pStyle(this,'cartoon')" id="s3d">3D Cartoon</div>
+   <div class="chip" onclick="pStyle(this,'realistic')" id="srl">Realistic</div>
+   <div class="chip" onclick="pStyle(this,'anime')" id="san">Anime</div>
+  </div>
+  <div class="irow">
+   <input class="mi" id="di" placeholder="Describe your drawing..."/>
+   <button class="vb" onclick="sVoice('di')">🎤</button>
+   <button class="btn bpk" onclick="genDraw()">🖌️ <span id="dbtxt">Draw!</span></button>
+  </div>
+  <div class="obox" id="dout"><div class="ph" id="dph">🎨 Your drawing will appear here!</div></div>
+  <div class="arow" id="dacts" style="display:none;">
+   <button class="btn bgy" onclick="clDraw()">🗑️ <span id="dctxt">Clear</span></button>
+   <button class="btn bgr" onclick="dlImg('dimg','drawing')">💾 <span id="dstxt">Save</span></button>
+   <button class="btn bpu" onclick="rdQuiz()">🔊 <span id="dqtxt">Read Quiz</span></button>
+  </div>
+  <div class="quiz" id="dquiz" style="display:none;"></div>
+ </div>
+</div>
+
+<!-- MATH -->
+<div id="p-math" class="panel">
+ <div class="pc">
+  <div class="ptitle" style="color:var(--bl);">🔢 <span id="mt">Maths Zone</span></div>
+  <div class="avrow">
+   <div class="av">👩‍🏫</div>
+   <div class="avbbl" id="avsp"><span id="avgreet">Hello! I'm your AI Maths Teacher. Ask me any problem! 😊</span></div>
+  </div>
+  <div class="irow">
+   <input class="mi" id="mi" placeholder="Type a maths question..."/>
+   <button class="vb" onclick="sVoice('mi')">🎤</button>
+   <button class="btn bbl" onclick="solveMath()">🧮 <span id="mbtxt">Solve!</span></button>
+  </div>
+  <div class="obox" id="mout"><div class="ph" id="mph">Step-by-step solution appears here! 📐</div></div>
+  <div class="arow">
+   <button class="btn bgy" onclick="clMath()">🗑️ <span id="mctxt">Clear</span></button>
+   <button class="btn bpu" onclick="sayMath()">🔊 <span id="mstxt">Listen</span></button>
+  </div>
+ </div>
+</div>
+
+<!-- STORY -->
+<div id="p-story" class="panel">
+ <div class="pc">
+  <div class="ptitle" style="color:var(--gr);">📚 <span id="st">Story Studio</span></div>
+  <div class="chips" id="szchips">
+   <div class="chip on" onclick="pSize(this,'short')" id="szs">📖 <span id="szstxt">Short (100-150)</span></div>
+   <div class="chip" onclick="pSize(this,'long')" id="szl">📕 <span id="szltxt">Long (150-200)</span></div>
+  </div>
+  <div class="chips" id="sstychips">
+   <div class="chip on" onclick="pSStyle(this,'3D Cartoon')" id="ss3">3D Cartoon</div>
+   <div class="chip" onclick="pSStyle(this,'Realistic')" id="ssr">Realistic</div>
+   <div class="chip" onclick="pSStyle(this,'Anime')" id="ssa">Anime</div>
+  </div>
+  <div class="irow">
+   <input class="mi" id="sti" placeholder="What is your story about?"/>
+   <button class="vb" onclick="sVoice('sti')">🎤</button>
+   <button class="btn bgr" onclick="genStory()">✨ <span id="stbtxt">Create!</span></button>
+  </div>
+  <div class="obox" id="stph"><div class="ph" id="stphtxt">✨ Your story will appear here!</div></div>
+  <div id="starea" style="display:none;">
+   <div class="sout"><div class="stxt" id="stxtout"></div><div class="simgs" id="stimgs"></div></div>
+   <div class="quiz" id="stquiz" style="margin-top:13px;"></div>
+   <div class="arow">
+    <button class="btn bpu" onclick="togRead()" id="sread">▶️ <span id="srtxt">Read Story</span></button>
+    <button class="btn bgr" onclick="dlStory()">💾 <span id="sdltxt">Save</span></button>
+    <button class="btn bgy" onclick="clStory()">🗑️ <span id="sctxt">Clear</span></button>
+   </div>
+  </div>
+ </div>
+</div>
+
+<!-- CHAT -->
+<div id="p-chat" class="panel">
+ <div class="pc">
+  <div class="ptitle" style="color:var(--ye);">💬 <span id="cht">Chat Zone</span></div>
+  <div class="carea" id="carea"></div>
+  <div class="irow">
+   <input class="mi" id="chi" placeholder="Type your message..." onkeydown="if(event.key==='Enter')sendChat()"/>
+   <button class="vb" onclick="sVoice('chi',true)">🎤</button>
+   <button class="btn bye" onclick="sendChat()">📨 <span id="chbtxt">Send</span></button>
+  </div>
+ </div>
+</div>
+
+</div>
+</div>
+
+<script>
+'use strict';
+// ✅ STANDALONE MODE — Netlify தேவையில்லை, நேரடியாக Gemini API
+const AB=null; // not used in standalone
+let GKEY='AIzaSyCzSpk83w0ug6ZHPvYtbLPJahGa88NiS6g'; // ✅ உங்கள் API Key இங்கே
+
+let lang='en',dStyle='cartoon',sSize='short',ssStyle='3D Cartoon';
+let stTxt='',mathTxt='',chatH=[],dQuizD=[],sReading=false;
+let recog=null,isRec=false;
+let tok=sessionStorage.getItem('kb_tok')||'',sch=sessionStorage.getItem('kb_sch')||'';
+
+const T={
+en:{at:"Kinny Bari's AI PrimarySchool",as:"Smart Learning for Smart Kids",
+  nh:"Home",nd:"Drawing",nm:"Maths",ns:"Stories",nc:"Chat",
+  hw:"Welcome to AI School!",hd:"Choose your learning adventure 👇",
+  hctd:"Drawing Zone",hcdd:"Create amazing AI art!",hctm:"Maths Zone",hcdm:"Learn with AI teacher",
+  hcts:"Story Studio",hcds:"Create amazing stories!",hctc:"Chat Zone",hcdc:"Talk with Kinny Bari!",
+  qrs:"Scan QR Code to open on any device!",qrdl:"Download QR",
+  dt:"Drawing Zone",s3d:"3D Cartoon",srl:"Realistic",san:"Anime",
+  di:"Describe your drawing...",dbt:"Draw!",dct:"Clear",dst:"Save",dqt:"Read Quiz",
+  dph:"🎨 Your drawing will appear here!",wd:"Drawing your picture, please wait! 🎨",
+  mt:"Maths Zone",mbt:"Solve!",mct:"Clear",mst:"Listen",
+  mi:"Type a maths question...",mph:"Step-by-step solution appears here! 📐",
+  avg:"Hello! I'm your AI Maths Teacher. Ask me any problem! 😊",
+  st:"Story Studio",stb:"Create!",sdl:"Save",sc:"Clear",
+  szs:"Short (100-150)",szl:"Long (150-200)",srt:"Read Story",spt:"Stop",
+  sti:"What is your story about?",stph:"✨ Your story will appear here!",
+  ws:"Writing your story, please wait! 📝",wsi:"Drawing pictures for your story, please wait! 🖼️",
+  cht:"Chat Zone",chb:"Send",chi:"Type your message...",
+  lt:"Kinny Bari's AI PrimarySchool",ls:"Enter your Gemini API Key (starts with AIza...)",
+  lbt:"Start Learning!",le:"❌ Invalid API Key! Must start with AIza...",vs:"Listening...",
+  gr:"As-salamu alaykum! 🌙 Hello! I'm Kinny Bari, your friendly AI teacher! 😊 How can I help you today?"},
+ta:{at:"கின்னி பாரியின் AI ஆரம்பப்பள்ளி",as:"புத்திசாலி குழந்தைகளுக்கான கல்வி",
+  nh:"முகப்பு",nd:"வரைதல்",nm:"கணிதம்",ns:"கதைகள்",nc:"அரட்டை",
+  hw:"AI பள்ளிக்கு வரவேற்கிறோம்!",hd:"கீழே உங்கள் கற்றல் சாகசத்தைத் தேர்வு செய்யுங்கள் 👇",
+  hctd:"வரைதல் மண்டலம்",hcdd:"அற்புதமான AI ஓவியம் வரையுங்கள்!",
+  hctm:"கணித மண்டலம்",hcdm:"AI ஆசிரியருடன் கணிதம் கற்கலாம்",
+  hcts:"கதை ஸ்டூடியோ",hcds:"அற்புதமான கதைகளை உருவாக்குங்கள்!",
+  hctc:"அரட்டை மண்டலம்",hcdc:"கின்னி பாரியிடம் பேசுங்கள்!",
+  qrs:"QR Code ஸ்கேன் செய்தால் எந்த device-லும் திறக்கலாம்!",qrdl:"QR பதிவிறக்கம்",
+  dt:"வரைதல் மண்டலம்",s3d:"3D கார்ட்டூன்",srl:"யதார்த்தமான",san:"அனிமி",
+  di:"உங்கள் ஓவியத்தை விவரியுங்கள்...",dbt:"வரை!",dct:"அழி",dst:"சேமி",dqt:"வினா படி",
+  dph:"🎨 உங்கள் ஓவியம் இங்கே தோன்றும்!",wd:"உங்கள் படத்தை வரைகிறேன், பொறுத்திருங்கள்! 🎨",
+  mt:"கணித மண்டலம்",mbt:"தீர்வு காண்!",mct:"அழி",mst:"கேளுங்கள்",
+  mi:"கணிதக் கேள்வியை தட்டச்சு செய்யுங்கள்...",mph:"படிப்படியான தீர்வு இங்கே தோன்றும்! 📐",
+  avg:"வணக்கம்! நான் உங்கள் AI கணித ஆசிரியை. எந்த கணிதப் பிரச்சினையும் கேளுங்கள்! 😊",
+  st:"கதை ஸ்டூடியோ",stb:"உருவாக்கு!",sdl:"சேமி",sc:"அழி",
+  szs:"சிறிய (100-150 சொற்கள்)",szl:"நீண்ட (150-200 சொற்கள்)",srt:"கதை வாசி",spt:"நிறுத்து",
+  sti:"உங்கள் கதை எதைப்பற்றியது?",stph:"✨ உங்கள் கதை இங்கே தோன்றும்!",
+  ws:"உங்கள் கதையை எழுதுகிறேன், பொறுத்திருங்கள்! 📝",
+  wsi:"உங்கள் கதைக்கான படத்தை வரைகிறேன், பொறுத்திருங்கள்! 🖼️",
+  cht:"அரட்டை மண்டலம்",chb:"அனுப்பு",chi:"உங்கள் செய்தியை தட்டச்சு செய்யுங்கள்...",
+  lt:"கின்னி பாரியின் AI ஆரம்பப்பள்ளி",ls:"உங்கள் Gemini API Key உள்ளிடுங்கள் (AIza... தொடங்கும்)",
+  lbt:"கற்கத் தொடங்கு!",le:"❌ தவறான கடவுச்சொல்! மீண்டும் முயற்சிக்கவும்.",vs:"கேட்கிறேன்...",
+  gr:"அஸ்ஸலாமு அலைக்கும்! 🌙 வணக்கம்! நான் கின்னி பாரி, உங்கள் அன்பான AI ஆசிரியை! 😊 இன்று உங்களுக்கு எவ்வாறு உதவலாம்?"},
+si:{at:"කිනී බාරිගේ AI ප්‍රාථමික පාසල",as:"දක්ෂ දරුවන්ට දක්ෂ ඉගෙනීම",
+  nh:"මුල් පිටුව",nd:"චිත්‍ර",nm:"ගණිතය",ns:"කතා",nc:"චැට්",
+  hw:"AI පාසලට සාදරයෙන් පිළිගනිමු!",hd:"ඔබේ ඉගෙනීම තෝරන්න 👇",
+  hctd:"චිත්‍ර කලාව",hcdd:"AI සිතුවම් නිර්මාණය කරන්න!",
+  hctm:"ගණිත කලාව",hcdm:"AI ගුරුවරිය සමඟ ගණිතය ඉගෙනෙමු",
+  hcts:"කතා ස්ටූඩියෝ",hcds:"හිතකර කතා නිර්මාණය කරන්න!",
+  hctc:"චැට් කලාව",hcdc:"කිනී බාරි සමඟ කතා කරන්න!",
+  qrs:"ඕනෑම උපාංගයකින් QR Code ස්කෑන් කරන්න!",qrdl:"QR බාගන්න",
+  dt:"චිත්‍ර කලාව",s3d:"3D කාටූන්",srl:"යථාර්ථවාදී",san:"ඇනිමේ",
+  di:"ඔබේ සිතුවම විස්තර කරන්න...",dbt:"ඇදීමට!",dct:"ඉවත් කරන්න",dst:"සුරකින්න",dqt:"ප්‍රශ්න කියවන්න",
+  dph:"🎨 ඔබේ සිතුවම මෙහි දිස් වේ!",wd:"ඔබේ රූපය ඇදීමෙන් රැඳෙන්න! 🎨",
+  mt:"ගණිත කලාව",mbt:"විසඳන්න!",mct:"ඉවත් කරන්න",mst:"සවන් දෙන්න",
+  mi:"ගණිත ප්‍රශ්නය ටයිප් කරන්න...",mph:"ඔබේ විසඳුම මෙහි දිස් වේ! 📐",
+  avg:"ආයුබෝවන්! මම ඔබේ AI ගණිත ගුරුවරිය. ඕනෑම ගැටලුවක් අහන්න! 😊",
+  st:"කතා ස්ටූඩියෝ",stb:"නිර්මාණය!",sdl:"සුරකින්න",sc:"ඉවත් කරන්න",
+  szs:"කෙටි (100-150 වචන)",szl:"දිගු (150-200 වචන)",srt:"කතාව කියවන්න",spt:"නවත්වන්න",
+  sti:"ඔබේ කතාව ගැන කුමක්ද?",stph:"✨ ඔබේ කතාව මෙහි දිස් වේ!",
+  ws:"ඔබේ කතාව ලිවීමෙන් රැඳෙන්න! 📝",wsi:"ඔබේ කතාව සඳහා රූප ඇදීමෙන් රැඳෙන්න! 🖼️",
+  cht:"චැට් කලාව",chb:"යවන්න",chi:"ඔබේ පණිවිඩය ටයිප් කරන්න...",
+  lt:"කිනී බාරිගේ AI ප්‍රාථමික පාසල",ls:"ඉගෙනීම ආරම්භ කිරීමට ඔබේ මුරපදය ඇතුළු කරන්න!",
+  lbt:"ඉගෙනීම ආරම්භ!",le:"❌ වැරදි මුරපදය! නැවත උත්සාහ කරන්න.",vs:"සවන් දෙමි...",
+  gr:"අස්සලාමු අලෙයිකුම්! 🌙 ආයුබෝවන්! මම කිනී බාරි! 😊 අද මට ඔබට කෙසේ උදව් කළ හැකිද?"},
+ar:{at:"مدرسة كيني باري الذكاء الاصطناعي",as:"تعلم ذكي للأطفال الأذكياء",
+  nh:"الرئيسية",nd:"الرسم",nm:"الرياضيات",ns:"القصص",nc:"الدردشة",
+  hw:"مرحباً بك في مدرسة الذكاء الاصطناعي!",hd:"اختر مغامرتك التعليمية 👇",
+  hctd:"منطقة الرسم",hcdd:"أنشئ فناً رائعاً!",hctm:"منطقة الرياضيات",hcdm:"تعلم الرياضيات مع المعلمة",
+  hcts:"استوديو القصص",hcds:"أنشئ قصصاً رائعة!",hctc:"منطقة الدردشة",hcdc:"تحدث مع كيني باري!",
+  qrs:"امسح رمز QR لفتحه على أي جهاز!",qrdl:"تنزيل QR",
+  dt:"منطقة الرسم",s3d:"كرتون ثلاثي الأبعاد",srl:"واقعي",san:"أنيمي",
+  di:"صف رسمتك...",dbt:"ارسم!",dct:"مسح",dst:"حفظ",dqt:"اقرأ الاختبار",
+  dph:"🎨 ستظهر رسمتك هنا!",wd:"أرسم صورتك، انتظر من فضلك! 🎨",
+  mt:"منطقة الرياضيات",mbt:"حل!",mct:"مسح",mst:"استمع",
+  mi:"اكتب سؤال الرياضيات...",mph:"سيظهر الحل خطوة بخطوة هنا! 📐",
+  avg:"مرحباً! أنا معلمة الرياضيات. اسألني أي سؤال! 😊",
+  st:"استوديو القصص",stb:"أنشئ!",sdl:"حفظ",sc:"مسح",
+  szs:"قصيرة (100-150 كلمة)",szl:"طويلة (150-200 كلمة)",srt:"اقرأ القصة",spt:"توقف",
+  sti:"عمَّ تدور قصتك؟",stph:"✨ ستظهر قصتك هنا!",
+  ws:"أكتب قصتك، انتظر من فضلك! 📝",wsi:"أرسم صوراً لقصتك، انتظر من فضلك! 🖼️",
+  cht:"منطقة الدردشة",chb:"إرسال",chi:"اكتب رسالتك...",
+  lt:"مدرسة كيني باري الذكاء الاصطناعي",ls:"أدخل كلمة مرور مدرستك للبدء!",
+  lbt:"ابدأ التعلم!",le:"❌ كلمة مرور خاطئة! حاول مرة أخرى.",vs:"أستمع...",
+  gr:"السلام عليكم! 🌙 مرحباً! أنا كيني باري! 😊 كيف يمكنني مساعدتك اليوم؟"}
+};
+const VC={en:'en-GB',ta:'ta-IN',si:'si-LK',ar:'ar-SA'};
+const LN={en:'English',ta:'Tamil',si:'Sinhala',ar:'Arabic'};
+
+// STARS
+(()=>{const c=G('stars');for(let i=0;i<55;i++){const s=document.createElement('div');s.className='star';const z=Math.random()*2.5+0.5;s.style.cssText=`width:${z}px;height:${z}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--d:${2+Math.random()*4}s;--dl:${Math.random()*4}s;`;c.appendChild(s);}})();
+
+// ── VOICE PRELOAD ──
+let voicesReady=false;
+function preloadVoices(){
+  if(!window.speechSynthesis)return;
+  // Trigger voice list load — Chrome needs this
+  window.speechSynthesis.getVoices();
+  window.speechSynthesis.onvoiceschanged=()=>{
+    voicesReady=true;
+    console.log('Voices loaded:',window.speechSynthesis.getVoices().length);
+  };
+  // Also try after short delay (Firefox/Safari)
+  setTimeout(()=>{
+    if(window.speechSynthesis.getVoices().length>0)voicesReady=true;
+  },500);
+}
+
+window.onload=()=>{
+  preloadVoices();
+  // ✅ Restore language
+  const savedLang=sessionStorage.getItem('kb_lang');
+  if(savedLang&&T[savedLang]){
+    lang=savedLang;
+    document.querySelectorAll('.llp').forEach(b=>{
+      if(b.textContent.includes(savedLang==='en'?'EN':savedLang==='ta'?'தமிழ்':savedLang==='si'?'සිං':'عر'))b.classList.add('on');
+      else b.classList.remove('on');
+    });
+  }
+  // ✅ API Key code-ல் உள்ளது — Login screen தேவையில்லை!
+  tok='embedded'; sch='Kinny Bari School';
+  sessionStorage.setItem('kb_tok','embedded');
+  sessionStorage.setItem('kb_sch','Kinny Bari School');
+  showApp();
+};
+
+function G(id){return document.getElementById(id);}
+function setTxt(id,v){const e=G(id);if(e)e.textContent=v;}
+function setAttr(id,attr,v){const e=G(id);if(e)e[attr]=v;}
+
+function setLL(l,btn){
+  document.querySelectorAll('.llp').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  lang=l;
+  sessionStorage.setItem('kb_lang',l);
+  const t=T[l];setTxt('lt',t.lt);setTxt('ls',t.ls);setTxt('lbtxt',t.lbt);
+  document.body.style.direction=l==='ar'?'rtl':'ltr';
+}
+function togglePW(){const i=G('pwi'),s=i.type==='password';i.type=s?'text':'password';G('pweye').textContent=s?'🙈':'👁️';}
+
+async function doLogin(){
+  const pw=G('pwi').value.trim();if(!pw)return;
+  const btn=G('lbtn');btn.disabled=true;btn.innerHTML='⏳...';
+  // ✅ STANDALONE: Gemini API Key நேரடியாக உள்ளிடுங்கள்
+  if(pw.startsWith('AIza')||pw.startsWith('aiza')){
+    GKEY=pw;
+    localStorage.setItem('gkey',pw);
+    tok='standalone';sch='My School';
+    sessionStorage.setItem('kb_tok','standalone');
+    sessionStorage.setItem('kb_sch','My School');
+    showApp();
+  } else {
+    // Check saved key
+    const saved=localStorage.getItem('gkey');
+    if(saved){GKEY=saved;tok='standalone';sch='My School';sessionStorage.setItem('kb_tok','standalone');sessionStorage.setItem('kb_sch','My School');showApp();}
+    else showE();
+  }
+  btn.disabled=false;btn.innerHTML=`🚀 <span id="lbtxt">${T[lang].lbt}</span>`;
+}
+function showE(){const e=G('lerr');e.textContent=T[lang].le;e.style.display='block';e.style.animation='none';requestAnimationFrame(()=>e.style.animation='shk .4s ease');G('pwi').value='';setTimeout(()=>e.style.display='none',3000);}
+
+function showApp(){
+  // API Key already embedded in code ✅
+  G('login-scr').style.display='none';G('app').style.display='block';G('logout-btn').style.display='block';
+  const tb=G('tb-school');tb.style.display='inline-block';tb.textContent='🏫 '+sch;
+  const saved=sessionStorage.getItem('kb_lang');
+  if(saved&&T[saved])lang=saved;
+  applyL(lang);
+  initChat();
+  mkQR();
+}
+function doLogout(){
+  sessionStorage.clear();tok='';sch='';GKEY='';chatH=[];
+  window.speechSynthesis&&window.speechSynthesis.cancel();
+  G('app').style.display='none';G('logout-btn').style.display='none';G('login-scr').style.display='flex';G('pwi').value='';
+}
+
+function mkQR(){
+  const url=location.href.split('?')[0].split('#')[0];
+  G('qrurl').textContent=url;G('qrc').innerHTML='';
+  try{new QRCode(G('qrc'),{text:url,width:170,height:170,colorDark:'#A855F7',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H});}
+  catch(_){G('qrc').innerHTML=`<p style="color:#aaa;font-size:11px;word-break:break-all;">${url}</p>`;}
+}
+function dlQR(){const c=document.querySelector('#qrc canvas');if(c){const a=document.createElement('a');a.href=c.toDataURL();a.download='kinny-bari-qr.png';a.click();}}
+
+function setLang(l,btn){
+  lang=l;
+  sessionStorage.setItem('kb_lang',l); // ✅ மொழி மாற்றம் சேமிக்கப்படும்
+  document.querySelectorAll('.langb').forEach(b=>b.classList.remove('on'));
+  if(btn)btn.classList.add('on');
+  applyL(l);
+  // Chat greeting மொழியில் மாற்றம் — chat reset செய்யாமல் avatar மட்டும் update
+  const ag=document.getElementById('avgreet');
+  if(ag)ag.textContent=T[l].avg;
+}
+function applyL(l){
+  const t=T[l];
+  const M={'atitle':t.at,'asub':t.as,'n-home':t.nh,'n-draw':t.nd,'n-math':t.nm,'n-story':t.ns,'n-chat':t.nc,
+    'hw':t.hw,'hd':t.hd,'hct-draw':t.hctd,'hcd-draw':t.hcdd,'hct-math':t.hctm,'hcd-math':t.hcdm,
+    'hct-story':t.hcts,'hcd-story':t.hcds,'hct-chat':t.hctc,'hcd-chat':t.hcdc,
+    'qrsub':t.qrs,'qrdltxt':t.qrdl,'dt':t.dt,'s3d':t.s3d,'srl':t.srl,'san':t.san,
+    'dbtxt':t.dbt,'dctxt':t.dct,'dstxt':t.dst,'dqtxt':t.dqt,'dph':t.dph,
+    'mt':t.mt,'mbtxt':t.mbt,'mctxt':t.mct,'mstxt':t.mst,'mph':t.mph,'avgreet':t.avg,
+    'st':t.st,'stbtxt':t.stb,'sdltxt':t.sdl,'sctxt':t.sc,'szstxt':t.szs,'szltxt':t.szl,'stphtxt':t.stph,
+    'cht':t.cht,'chbtxt':t.chb};
+  for(const [id,v] of Object.entries(M))setTxt(id,v);
+  G('di').placeholder=t.di;G('mi').placeholder=t.mi;G('sti').placeholder=t.sti;G('chi').placeholder=t.chi;
+  const sr=G('sread');if(sr)sr.innerHTML=`▶️ <span id="srtxt">${t.srt}</span>`;
+  document.body.style.direction=l==='ar'?'rtl':'ltr';
+  // ✅ Sync lang-bar buttons with current lang
+  document.querySelectorAll('.langb').forEach(b=>{
+    const bl=b.getAttribute('onclick');
+    if(bl&&bl.includes("'"+l+"'"))b.classList.add('on');
+    else b.classList.remove('on');
+  });
+}
+
+function gp(n){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.navb').forEach(b=>b.classList.remove('on'));
+  G('p-'+n).classList.add('on');G('b-'+n).classList.add('on');
+}
+function pStyle(el,v){el.closest('.chips').querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));el.classList.add('on');dStyle=v;}
+function pSize(el,v){el.closest('.chips').querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));el.classList.add('on');sSize=v;}
+function pSStyle(el,v){el.closest('.chips').querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));el.classList.add('on');ssStyle=v;}
+
+async function apiTxt(body){
+  // ✅ நேரடியாக Gemini API
+  const url=`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${GKEY}`;
+  const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  const d=await r.json();if(d.error)throw new Error(d.error.message||d.error);
+  return d.candidates[0].content.parts[0].text;
+}
+async function apiImg(p){
+  // ✅ gemini-2.5-flash-image — June 2026 working model
+  const url=`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key=${GKEY}`;
+  const body={
+    contents:[{parts:[{text:p}]}],
+    generationConfig:{responseModalities:["TEXT","IMAGE"]}
+  };
+  const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  const d=await r.json();
+  if(d.error)throw new Error(d.error.message||d.error);
+  const parts=d.candidates[0].content.parts;
+  for(const x of parts)if(x.inlineData)return 'data:'+x.inlineData.mimeType+';base64,'+x.inlineData.data;
+  return null;
+}
+
+function spk(txt,l,cb){
+  if(!window.speechSynthesis||!txt)return;
+  const useLang=l||lang;
+  window.speechSynthesis.cancel();
+
+  const doSpeak=()=>{
+    const u=new SpeechSynthesisUtterance(txt);
+    u.lang=VC[useLang]||'en-GB';
+    u.rate=0.88;u.pitch=1.15;u.volume=1;
+
+    const vv=window.speechSynthesis.getVoices();
+    if(vv.length){
+      // 1. Perfect female match
+      let fv=vv.find(v=>v.lang===VC[useLang]&&/female|woman/i.test(v.name));
+      // 2. Any voice matching lang
+      if(!fv)fv=vv.find(v=>v.lang.startsWith((VC[useLang]||'en').split('-')[0]));
+      // 3. Known good voices
+      if(!fv)fv=vv.find(v=>/samantha|zira|google uk english female/i.test(v.name));
+      if(fv)u.voice=fv;
+    }
+    u.onend=()=>{if(cb)cb();};
+    u.onerror=(e)=>{console.log('TTS error:',e.error);};
+    // Chrome bug fix: small delay
+    setTimeout(()=>window.speechSynthesis.speak(u),50);
+  };
+
+  const vv=window.speechSynthesis.getVoices();
+  if(vv&&vv.length>0){
+    doSpeak();
+  } else {
+    window.speechSynthesis.onvoiceschanged=()=>{doSpeak();};
+  }
+}
+
+
+
+function sVoice(iid,auto=false){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){alert('Please use Chrome for voice input!');return;}
+  if(isRec){recog&&recog.stop();return;}
+  recog=new SR();recog.lang=VC[lang]||'en-GB';recog.interimResults=false;isRec=true;
+  document.querySelectorAll('.vb').forEach(b=>b.classList.add('rec'));
+  recog.onresult=e=>{G(iid).value=e.results[0][0].transcript;isRec=false;document.querySelectorAll('.vb').forEach(b=>b.classList.remove('rec'));if(auto)sendChat();};
+  recog.onerror=recog.onend=()=>{isRec=false;document.querySelectorAll('.vb').forEach(b=>b.classList.remove('rec'));};
+  recog.start();spk(T[lang].vs,lang);
+}
+
+function showWait(id,msg){
+  G(id).innerHTML=`<div class="wait"><div class="wtxt">${msg}</div><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>`;
+  const curLang=lang; // ✅ capture now — callback-ல் மாறாது
+  setTimeout(()=>spk(msg,curLang),100);
+}
+
+function dlImg(id,n){const img=G(id);if(!img)return;const a=document.createElement('a');a.href=img.src;a.download=n+'.png';a.click();}
+
+function rQuiz(cid,data){
+  G(cid).innerHTML=data.map((q,i)=>`<div class="qi" id="qi-${cid}-${i}"><div class="qtxt">${i+1}. ${q.q}</div><div class="qopts">${q.opts.map((o,j)=>`<button class="qo" onclick="ansQ('${cid}',${i},${j},${q.ans})">${o}</button>`).join('')}</div></div>`).join('');
+}
+function ansQ(cid,qi,ch,cor){
+  const el=G(`qi-${cid}-${qi}`);const bs=el.querySelectorAll('.qo');
+  bs.forEach((b,i)=>{b.disabled=true;if(i===cor)b.classList.add('ok');else if(i===ch)b.classList.add('no');});
+  spk(ch===cor?'✅ Correct! Well done! 🎉':'❌ Wrong! Correct: '+bs[cor].textContent,lang);
+}
+
+// DRAW
+async function genDraw(){
+  const p=G('di').value.trim();if(!p){alert('Please describe your drawing!');return;}
+  const t=T[lang];showWait('dout',t.wd);G('dacts').style.display='none';G('dquiz').style.display='none';
+  const sm={cartoon:'vibrant 3D cartoon style, colorful, child-friendly',realistic:'realistic photographic, child-safe, detailed',anime:'anime illustration, colorful, child-friendly'};
+  try{
+    const src=await apiImg(`Beautiful children's illustration of: ${p}. ${sm[dStyle]}. IMPORTANT: NO text, NO letters, NO words, NO numbers in the image. Pure visual art. Child-safe, vibrant.`);
+    if(src){G('dout').innerHTML=`<img id="dimg" src="${src}" class="oimg" alt="AI Drawing">`;G('dacts').style.display='flex';await mkDQuiz(p,t);}
+    else G('dout').innerHTML=`<div class="ph">❌ Could not generate. Try again!</div>`;
+  }catch(e){G('dout').innerHTML=`<div class="ph">❌ ${e.message}</div>`;}
+}
+async function mkDQuiz(p,t){
+  const ln=LN[lang];
+  try{
+    let raw=await apiTxt({contents:[{parts:[{text:`A picture was drawn of: "${p}". Generate exactly 3 fun quiz questions for primary school children. Respond in ${ln} ONLY. Return ONLY valid JSON:\n[{"q":"...","opts":["...","...","..."],"ans":0},{"q":"...","opts":["...","...","..."],"ans":1},{"q":"...","opts":["...","...","..."],"ans":2}]`}]}]});
+    raw=raw.replace(/\`\`\`json|\`\`\`/g,'').trim();const s=raw.indexOf('['),e=raw.lastIndexOf(']');if(s>=0&&e>=0)raw=raw.slice(s,e+1);
+    dQuizD=JSON.parse(raw);rQuiz('dquiz',dQuizD);G('dquiz').style.display='block';
+    setTimeout(()=>spk(dQuizD.map((q,i)=>`${i+1}. ${q.q}. ${q.opts.join(', ')}`).join('. '),lang),800);
+  }catch(e){console.log('DQ',e);}
+}
+function rdQuiz(){if(dQuizD.length)spk(dQuizD.map((q,i)=>`${i+1}. ${q.q}. Options: ${q.opts.join(', ')}`).join('. '),lang);}
+function clDraw(){G('dout').innerHTML=`<div class="ph" id="dph">${T[lang].dph}</div>`;G('dacts').style.display='none';G('dquiz').style.display='none';G('di').value='';dQuizD=[];window.speechSynthesis&&window.speechSynthesis.cancel();}
+
+// MATH
+async function solveMath(){
+  const q=G('mi').value.trim();if(!q){alert('Please enter a question!');return;}
+  const ln=LN[lang];
+  G('mout').innerHTML=`<div class="wait"><div class="wtxt">🧮</div><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>`;
+  G('avsp').innerHTML=`<span>🤔 Let me solve this step by step...</span>`;
+  try{
+    const ans=await apiTxt({contents:[{parts:[{text:`You are a warm friendly female AI maths teacher for primary school children (Grade 1-5) in Sri Lanka.\nRespond ENTIRELY in ${ln} with perfect natural pronunciation.\nQuestion: ${q}\n\nProvide:\n1. Warm greeting in ${ln}\n2. Step-by-step solution (numbered, very simple, lots of emojis)\n3. Final answer clearly highlighted ✅\n4. Encouraging message\n\nKeep it fun, simple, child-friendly. Reply ONLY in ${ln}.`}]}]});
+    mathTxt=ans;G('mout').innerHTML=`<div class="otxt">${ans.replace(/\n/g,'<br>')}</div>`;
+    const mathLang=lang;G('avsp').innerHTML=`<span>✅ Solved! Press 🔊 Listen to hear it!</span>`;spk(ans.replace(/<[^>]+>/g,''),mathLang);
+  }catch(e){G('mout').innerHTML=`<div class="ph">❌ ${e.message}</div>`;}
+}
+function sayMath(){if(mathTxt)spk(mathTxt.replace(/<[^>]+>/g,''),lang);}
+function clMath(){G('mout').innerHTML=`<div class="ph" id="mph">${T[lang].mph}</div>`;G('mi').value='';G('avsp').innerHTML=`<span id="avgreet">${T[lang].avg}</span>`;mathTxt='';window.speechSynthesis&&window.speechSynthesis.cancel();}
+
+// STORY
+async function genStory(){
+  const topic=G('sti').value.trim();if(!topic){alert('Please enter a story topic!');return;}
+  const t=T[lang];const ln=LN[lang];const wc=sSize==='short'?'100 to 150':'150 to 200';
+  G('stph').style.display='flex';G('starea').style.display='none';showWait('stph',t.ws);
+  try{
+    stTxt=await apiTxt({contents:[{parts:[{text:`Write a beautiful engaging children's story in ${ln} about: "${topic}".\n- Length: exactly ${wc} words\n- Audience: primary school children 5-12 years\n- Fun, educational, clear moral lesson\n- Simple ${ln} words, lots of emojis\n- Clear beginning, exciting middle, satisfying end\n- Warm, magical, imaginative tone\nReply ONLY in ${ln}. No word count, no meta-info.`}]}]});
+    G('stxtout').innerHTML=stTxt.replace(/\n/g,'<br>');
+    showWait('stph',t.wsi);
+    const ni=sSize==='short'?2:4;
+    const as={'3D Cartoon':'vibrant 3D cartoon illustration, child-friendly, colorful','Realistic':"realistic children's book illustration, warm colors",'Anime':'beautiful anime illustration, child-friendly, colorful'}[ssStyle]||'3D cartoon';
+    G('stimgs').innerHTML='';
+    for(let i=0;i<ni;i++){
+      const ex=stTxt.substring(Math.max(0,Math.floor((i+1)*stTxt.length/ni)-80),Math.floor((i+1)*stTxt.length/ni)+80);
+      try{const src=await apiImg(`Children's story illustration scene ${i+1} of ${ni}: "${topic}". Scene: "${ex.substring(0,80)}". Style: ${as}. NO text, NO letters in image. Child-safe, beautiful, detailed.`);if(src){const img=document.createElement('img');img.src=src;img.className='simg';img.alt=`Scene ${i+1}`;G('stimgs').appendChild(img);}}catch(e){console.log('SI',e);}
+    }
+    G('stph').style.display='none';G('starea').style.display='block';
+    await mkSQuiz(stTxt,ln);spk(stTxt.substring(0,80),lang);
+  }catch(e){G('stph').innerHTML=`<div class="ph">❌ ${e.message}</div>`;}
+}
+async function mkSQuiz(story,ln){
+  try{
+    let raw=await apiTxt({contents:[{parts:[{text:`Based on this children's story (in ${ln}): "${story.substring(0,500)}..."\nGenerate 5 comprehension questions for primary school children.\nRespond in ${ln} ONLY. Return ONLY valid JSON:\n[{"q":"...","opts":["...","...","..."],"ans":0},...]`}]}]});
+    raw=raw.replace(/\`\`\`json|\`\`\`/g,'').trim();const s=raw.indexOf('['),e=raw.lastIndexOf(']');if(s>=0&&e>=0)raw=raw.slice(s,e+1);
+    const quiz=JSON.parse(raw);rQuiz('stquiz',quiz);G('stquiz').style.display='block';
+    setTimeout(()=>spk(quiz.map((q,i)=>`${i+1}. ${q.q}`).join('. '),lang),2000);
+  }catch(e){console.log('SQ',e);}
+}
+function togRead(){
+  const t=T[lang];
+  if(sReading){window.speechSynthesis&&window.speechSynthesis.cancel();sReading=false;G('sread').innerHTML=`▶️ <span id="srtxt">${t.srt}</span>`;}
+  else{sReading=true;G('sread').innerHTML=`⏹️ <span id="srtxt">${t.spt}</span>`;spk(stTxt,lang,()=>{sReading=false;const b=G('sread');if(b)b.innerHTML=`▶️ <span id="srtxt">${t.srt}</span>`;});}
+}
+function dlStory(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([stTxt],{type:'text/plain;charset=utf-8'}));a.download='kinny-bari-story.txt';a.click();}
+function clStory(){G('starea').style.display='none';G('stph').style.display='flex';G('stph').innerHTML=`<div class="ph" id="stphtxt">${T[lang].stph}</div>`;G('sti').value='';stTxt='';sReading=false;window.speechSynthesis&&window.speechSynthesis.cancel();}
+
+// CHAT
+function initChat(){
+  G('carea').innerHTML='';chatH=[];
+  const gr=T[lang].gr;
+  addMsg('ai',gr);
+  // ✅ Small delay — DOM render முடிந்த பிறகு பேசும், lang reset ஆகாது
+  const curLang=lang;
+  setTimeout(()=>spk(gr,curLang),300);
+  chatH=[{role:'user',parts:[{text:'Hello!'}]},{role:'model',parts:[{text:gr}]}];
+}
+function addMsg(type,txt,imgSrc=null){
+  const a=G('carea');const d=document.createElement('div');d.className=`cm ${type==='ai'?'ai':'u'}`;
+  d.innerHTML=`<div class="mav ${type==='ai'?'ai':'u'}">${type==='ai'?'🧑‍🏫':'👦'}</div><div><div class="mbl">${txt.replace(/\n/g,'<br>')}</div>${imgSrc?`<img src="${imgSrc}" class="cimg" alt="AI Image">`:''}  </div>`;
+  a.appendChild(d);a.scrollTop=a.scrollHeight;
+}
+async function sendChat(){
+  const inp=G('chi');const msg=inp.value.trim();if(!msg)return;
+  inp.value='';addMsg('user',msg);const ln=LN[lang];
+  const dk=['draw','paint','image','picture','show','create image','make image','رسم','صورة','வரை','படம்','ඇඳ'];
+  const wImg=dk.some(k=>msg.toLowerCase().includes(k.toLowerCase()));
+  chatH.push({role:'user',parts:[{text:msg}]});
+  const a=G('carea');const th=document.createElement('div');th.className='cm ai';th.id='thmsg';
+  th.innerHTML=`<div class="mav ai">🧑‍🏫</div><div class="mbl"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>`;
+  a.appendChild(th);a.scrollTop=a.scrollHeight;
+  const sys=`You are Kinny Bari, a warm loving playful female AI teacher for primary school children in Sri Lanka.\nYou have PhD in Primary Education + PhD in Child Psychology.\nExpertise: Sri Lanka preschool & primary curriculum (Grades 1-5), environment studies, Buddhism, Hinduism, Islam, Christianity, Sinhala/Tamil/English/Arabic grammar (Grade 1-5), all mathematics.\nPersonality: Warm, loving, playful. Use lots of emojis. Speak like a beloved teacher coddling a sweet child. Be encouraging always.\nRespond ENTIRELY in ${ln} with perfect natural ${ln} pronunciation.\nKeep responses concise and child-friendly.`;
+  try{
+    const rep=await apiTxt({system_instruction:{parts:[{text:sys}]},contents:chatH});
+    chatH.push({role:'model',parts:[{text:rep}]});
+    const repLang=lang; // ✅ capture before any async
+    G('thmsg')?.remove();addMsg('ai',rep);spk(rep,repLang);
+    if(wImg){try{const src=await apiImg(`${msg}. Beautiful 3D cartoon style, colorful, child-friendly. NO text NO letters in image. Child-safe.`);if(src)addMsg('ai','',src);}catch(e){}}
+  }catch(e){G('thmsg')?.remove();addMsg('ai','❌ Error: '+e.message);}
+}
+</script>
+</body>
+</html>
